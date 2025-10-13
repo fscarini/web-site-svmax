@@ -417,11 +417,12 @@ ul {
 }
 
 /* ========================================
-   Categories Section
+   Categories Section - (REVISADO)
    ======================================== */
 .categories {
+  /* Fundo mais claro para um look mais clean */
+  background-color: var(--color-bg-white); 
   padding: var(--spacing-2xl) 0;
-  background-color: var(--color-bg-gray);
 }
 
 .categories-grid {
@@ -433,15 +434,18 @@ ul {
 .category-card {
   background-color: var(--color-bg-white);
   padding: var(--spacing-xl);
-  border-radius: 8px;
+  border-radius: 12px; /* Bordas mais arredondadas */
   text-align: center;
-  box-shadow: var(--shadow-sm);
+  /* Sombra mais suave e borda sutil */
+  border: 1px solid #EAEAEA;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   transition: var(--transition-normal);
 }
 
+/* Remove o efeito de levantar ao passar o mouse para um look mais estático */
 .category-card:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
 }
 
 .category-icon {
@@ -450,30 +454,36 @@ ul {
   justify-content: center;
   width: 100px;
   height: 100px;
-  background: linear-gradient(135deg, var(--color-primary-blue), var(--color-secondary-teal));
+  /* Gradiente azul inspirado na imagem */
+  background: linear-gradient(145deg, #007BFF, #0056b3);
   color: var(--color-text-white);
   border-radius: 50%;
-  margin: 0 auto var(--spacing-md);
+  margin: 0 auto var(--spacing-lg);
+  /* Sombra no ícone para dar profundidade */
+  box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+  border: 4px solid var(--color-bg-light-blue); /* Borda para destacar */
 }
 
 .category-card h3 {
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-md);
-  color: var(--color-primary-blue);
+  /* Título com a cor primária */
+  color: var(--color-primary-blue); 
 }
 
 .category-card p {
   margin-bottom: var(--spacing-sm);
   line-height: 1.8;
+  color: var(--color-text-light); /* Cor de texto mais suave */
 }
 
 /* ========================================
-   Areas Section
+   Areas Section (REVISADO)
    ======================================== */
 .areas {
   padding: var(--spacing-2xl) 0;
-  background-color: var(--color-bg-white);
+  background-color: var(--color-bg-gray); /* Fundo sutil para a seção */
 }
 
 .areas h2 {
@@ -488,17 +498,21 @@ ul {
   font-size: var(--font-size-lg);
   color: var(--color-text-light);
   margin-bottom: var(--spacing-xl);
+  max-width: 800px; /* Limita a largura do subtítulo */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .areas-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--spacing-md);
+  /* Grid responsivo que se adapta ao conteúdo */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
 }
 
 .area-card {
   position: relative;
-  height: 300px;
+  height: 350px;
   border-radius: 8px;
   overflow: hidden;
   background-size: cover;
@@ -506,91 +520,299 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end; /* Alinha o conteúdo na base */
   text-align: center;
   padding: var(--spacing-lg);
   color: var(--color-text-white);
   transition: var(--transition-normal);
 }
 
+/* Efeito de overlay escuro para garantir a legibilidade do texto */
+.area-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.1));
+  transition: var(--transition-normal);
+}
+
+/* Isola o conteúdo do card para que fique acima do overlay */
+.area-card h3, .area-card p, .area-card .btn {
+  position: relative;
+  z-index: 2;
+}
+
 .area-card:hover {
-  transform: translateY(-5px);
+  transform: scale(1.03);
   box-shadow: var(--shadow-lg);
+}
+
+.area-card:hover::before {
+  background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
 }
 
 .area-card h3 {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-sm);
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
 }
 
 .area-card p {
   margin-bottom: var(--spacing-md);
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+  opacity: 0; /* O parágrafo fica oculto por padrão */
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+  max-height: 0;
+  overflow: hidden;
+}
+
+/* Mostra o parágrafo e o botão ao passar o mouse */
+.area-card:hover p {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 100px; /* Altura suficiente para o texto */
+}
+
+.area-card .btn {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+  margin-top: auto; /* Garante que o botão fique na base */
+}
+
+.area-card:hover .btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* --- ADICIONE SUAS IMAGENS DE FUNDO AQUI --- */
+
+.area-hospitais {
+  background-image: url('./assets/images/locais/hospital.jpg');
+}
+.area-industrias {
+  background-image: url('./assets/images/locais/industria.jpg');
+}
+.area-hoteis {
+  background-image: url('./assets/images/locais/hotel.jpg');
+}
+.area-escolas {
+  background-image: url('./assets/images/locais/faculdade.jpg');
+}
+.area-servicos {
+  background-image: url('./assets/images/locais/prestadora.jpg');
+}
+.area-restaurantes {
+  background-image: url('./assets/images/locais/bar.jpg');
+}
+.area-cozinhas {
+    background-image: url('./assets/images/locais/cozinha.jpg');
+}
+.area-condominios {
+    background-image: url('./assets/images/locais/shopping.jpg');
+}
+.area-consultorios {
+    background-image: url('./assets/images/locais/clinica.jpg');
+}
+.area-automotiva {
+    background-image: url('./assets/images/locais/automotiva.jpg');
 }
 
 /* ========================================
-   Products Section
+   Seção de Marcas Parceiras
    ======================================== */
-.products-section {
+.partners-section {
   padding: var(--spacing-2xl) 0;
   background-color: var(--color-bg-white);
+  text-align: center;
 }
 
-.products-section:nth-of-type(even) {
-  background-color: var(--color-bg-gray);
+.partners-section h2 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-sm);
 }
 
-.products-section h2 {
+/* Contêiner principal do carrossel */
+.logo-carousel {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  /* Efeito de degradê nas bordas para suavizar a entrada e saída */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+  margin-top: var(--spacing-xl);
+}
+
+/* Faixa que contém e anima os logos */
+.carousel-track {
+  display: flex;
+  /* CORREÇÃO: Havia 14, mas você tem 8 logos no total (4 originais + 4 duplicados) */
+  width: calc(250px * 8); 
+  animation: scroll 30s linear infinite;
+}
+
+/* Pausa a animação quando o mouse está sobre o carrossel */
+.logo-carousel:hover .carousel-track {
+  animation-play-state: paused;
+}
+
+/* Estilo de cada logo */
+.carousel-logo {
+  flex-shrink: 0;
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 40px;
+}
+
+.carousel-logo img {
+  max-width: 100%;
+  height: auto;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: var(--transition-normal);
+}
+
+/* Efeito de hover interativo */
+.carousel-logo:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Animação de rolagem infinita */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* CORREÇÃO: Havia 7. A animação precisa mover a faixa pelo total de logos ORIGINAIS (4) */
+    transform: translateX(calc(-250px * 4));
+  }
+}
+
+/* ========================================
+   Seção de Descartáveis (Products Section) - REVISADO
+   ======================================== */
+
+/* Garante que o estilo se aplique apenas à seção #descartaveis */
+#descartaveis.products-section {
+  background-color: var(--color-bg-white);
+  padding: var(--spacing-2xl) 0;
+}
+
+#descartaveis h2 {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
   text-align: center;
   margin-bottom: var(--spacing-xl);
 }
 
-.products-grid {
+#descartaveis .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  /* Por padrão, exibe 1 coluna (ideal para celulares) */
+  grid-template-columns: 1fr;
   gap: var(--spacing-lg);
 }
 
-.product-placeholder {
-  aspect-ratio: 1;
-  background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
-  border-radius: 8px;
+/* Novo estilo para os cards de produtos */
+.product-card {
+  background-color: #F7F7F7; /* Fundo cinza bem claro */
+  border-radius: 12px;
+  padding: var(--spacing-md);
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: var(--font-size-lg);
-  color: var(--color-text-light);
+  gap: var(--spacing-md);
   transition: var(--transition-normal);
+  overflow: hidden;
 }
 
-.product-placeholder:hover {
-  transform: scale(1.05);
+.product-card:hover {
+  transform: translateY(-5px);
   box-shadow: var(--shadow-md);
 }
 
+.product-card-image {
+  flex: 1 1 50%; /* Ocupa metade do espaço */
+}
+
+.product-card-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.product-card-text {
+  flex: 1 1 50%; /* Ocupa a outra metade */
+}
+
+.product-card-text h3 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-xs);
+}
+
+.product-card-text p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  line-height: 1.5;
+}
+
+/* Para telas com 768px de largura ou mais, exibe 2 colunas */
+@media (min-width: 768px) {
+  #descartaveis .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* ========================================
-   Banner Section
+   Banner Section (REVISADO como CTA)
    ======================================== */
 .banner-section {
   padding: var(--spacing-2xl) 0;
-  background: linear-gradient(135deg, var(--color-bg-beige), #E8DCC4);
+  /* Fundo com a cor primária para maior destaque */
+  background: linear-gradient(135deg, var(--color-primary-blue), #004a99);
   text-align: center;
+  color: var(--color-text-white); /* Texto branco para contraste */
 }
 
 .banner-content h2 {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-md);
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
 .banner-content p {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-lg);
   margin-bottom: var(--spacing-lg);
-  color: var(--color-text-light);
+  max-width: 700px; /* Limita a largura do texto para melhor leitura */
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.9;
+}
+
+/* Estilo específico para o botão de CTA para se destacar */
+.banner-section .cta-button {
+  background-color: var(--color-primary-yellow);
+  color: var(--color-text-dark);
+  font-size: var(--font-size-lg);
+  padding: 16px 40px;
+  box-shadow: var(--shadow-md);
+}
+
+.banner-section .cta-button:hover {
+  background-color: #FFEC8B; /* Amarelo mais claro no hover */
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
 }
 
 /* ========================================
@@ -640,6 +862,13 @@ ul {
   left: 0;
   color: var(--color-primary-blue);
   font-weight: var(--font-weight-bold);
+}
+
+.condominios-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante que a imagem cubra todo o espaço sem distorcer */
+  border-radius: 8px; /* Mantém as bordas arredondadas do container */
 }
 
 /* ========================================
@@ -710,14 +939,16 @@ ul {
 }
 
 .social-links a:first-child {
-  background-color: var(--color-primary-orange);
+  background-color: #1877F2; /* Alterado de var(--color-primary-orange) para o azul do Facebook */
   color: var(--color-text-white);
 }
 
 .social-links a:last-child {
-  background-color: var(--color-secondary-purple);
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
   color: var(--color-text-white);
 }
+
+
 
 .social-links a:hover {
   transform: translateY(-3px);
